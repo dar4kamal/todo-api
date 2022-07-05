@@ -39,4 +39,16 @@ export class TodosService {
       throw new InternalServerErrorException();
     }
   }
+
+  async removeOne(todoId: string) {
+    try {
+      const removedTodo = await this.todoModel.findOneAndDelete({
+        _id: todoId,
+      });
+      return removedTodo;
+    } catch (error) {
+      console.log(error.message);
+      throw new InternalServerErrorException();
+    }
+  }
 }
