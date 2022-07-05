@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
+import { TodosModule } from './todos/todos.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { AppController } from './app.controller';
     MongooseModule.forRoot(
       `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_CLUSTER_URL}/${process.env.DB_NAME}`,
     ),
+    TodosModule,
   ],
   controllers: [AppController],
   providers: [AppService],
