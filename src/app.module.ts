@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
 import { TodosModule } from './todos/todos.module';
+import { TransformInterceptor } from './utils/transform.interceptor';
 
 @Module({
   imports: [
@@ -15,6 +17,12 @@ import { TodosModule } from './todos/todos.module';
     TodosModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: TransformInterceptor,
+    },
+  ],
 })
 export class AppModule {}
